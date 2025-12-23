@@ -24,7 +24,7 @@ const Sidebar = ({ isOpen, onClose }) => {
 
   const menuItems = [
     { name: "Dashboard", path: "/dashboard", icon: dashboardIcon },
-    { name: "My Clients", path: "/my-clients", icon: clientIcon },
+    { name: "My Clients", path: "/myclients", icon: clientIcon },
     { name: "New Assessment", path: "/new-assessment", icon: assessmentIcon },
   ];
 

@@ -55,6 +55,15 @@ const theme = createTheme({
         root: {
           textTransform: "none",
           borderRadius: "8px",
+          "&.import-client-button": {
+            borderRadius: "8px",
+            border: "1px solid #3B3538",
+            backgroundColor: "rgba(255, 255, 255, 0.10)",
+            color: "#fff",
+            "&:hover": {
+              backgroundColor: "rgba(255, 255, 255, 0.15)",
+            },
+          },
         },
         contained: {
           backgroundColor: "#646cff",
@@ -118,7 +127,7 @@ const theme = createTheme({
         root: {
           color: "#6B6568",
           "&.Mui-checked": {
-            color: "#646cff",
+            color: "#fff",
           },
         },
       },

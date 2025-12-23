@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Dashboard from "../pages/dashboard";
 import Signin from "../pages/signin";
+import MyClientPage from "../pages/myclient";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <Dashboard />,
+  },
+  {
+    path: "/myclients",
+    element: <MyClientPage />,
   },
 ]);
 

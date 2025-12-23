@@ -38,34 +38,50 @@ const Navbar = ({ onMenuClick }) => {
               />
             </svg>
           </button>
-          <h1 className="text-lg md:text-xl font-semibold text-[#FFF]">
+          <h1
+            className={`font-semibold text-[#FFF] ${
+              isMyClients
+                ? "text-sm sm:text-base md:text-lg"
+                : "text-lg md:text-xl"
+            }`}
+          >
             {getPageTitle()}
           </h1>
         </div>
         {(isDashboard || isMyClients) && (
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             {isMyClients && (
               <Button
                 variant="contained"
                 className="import-client-button"
+                size="small"
+                sx={{
+                  fontSize: { xs: "11px", sm: "13px" },
+                  px: { xs: 1, sm: 2 },
+                  py: { xs: 0.5, sm: 1 },
+                  minWidth: "auto",
+                }}
               >
-                <Import size={18} className="mr-2" />
+                <Import size={14} className="mr-1 sm:mr-2" />
                 Import Client
               </Button>
             )}
             <Button
               variant="contained"
               onClick={() => setModalOpen(true)}
+              size={isMyClients ? "small" : "medium"}
               sx={{
                 backgroundColor: "#fff",
                 color: "#141112",
                 borderRadius: "9999px",
                 fontFamily: "Inter, sans-serif",
-                fontSize: "14px",
+                fontSize: isMyClients ? { xs: "11px", sm: "13px" } : "14px",
                 fontWeight: 600,
                 lineHeight: "21px",
                 letterSpacing: "0.07px",
                 textTransform: "none",
+                px: isMyClients ? { xs: 1.5, sm: 2 } : 2,
+                py: isMyClients ? { xs: 0.5, sm: 1 } : 1.5,
                 "&:hover": {
                   backgroundColor: "#e5e5e5",
                 },

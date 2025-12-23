@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   TextField,
   InputAdornment,
@@ -10,11 +11,17 @@ import {
   TableRow,
   Checkbox,
   Avatar,
+  Pagination,
+  PaginationItem,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 const SearchClient = () => {
+  const [page, setPage] = useState(1);
+  const rowsPerPage = 10;
   const columns = [
     "Client Name",
     "Phone Number",
@@ -112,6 +119,38 @@ const SearchClient = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <div className="flex flex-col sm:flex-row justify-between items-center w-full mt-4 gap-4">
+        <span className="text-gray-400 text-sm">
+          Showing {(page - 1) * rowsPerPage + 1}-{Math.min(page * rowsPerPage, clients.length)} of {clients.length} clients
+        </span>
+        <Pagination
+          count={Math.ceil(clients.length / rowsPerPage)}
+          page={page}
+          onChange={(_, value) => setPage(value)}
+          shape="rounded"
+          showFirstButton
+          showLastButton
+          siblingCount={1}
+          boundaryCount={1}
+          renderItem={(item) => (
+            <PaginationItem
+              slots={{
+                previous: () => (
+                  <span style={{ color: "#fff", display: "flex", alignItems: "center", gap: "4px" }}>
+                     Previous
+                  </span>
+                ),
+                next: () => (
+                  <span style={{ color: "#fff", display: "flex", alignItems: "center", gap: "4px" }}>
+                    Next 
+                  </span>
+                ),
+              }}
+              {...item}
+            />
+          )}
+        />
+      </div>
     </div>
   );
 };

@@ -59,6 +59,11 @@ const SigninComponent = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 variant="outlined"
                 size="small"
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: "9999px",
+                  },
+                }}
               />
             </div>
             <div className="mb-4">
@@ -71,6 +76,11 @@ const SigninComponent = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 variant="outlined"
                 size="small"
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: "9999px",
+                  },
+                }}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
@@ -100,6 +110,7 @@ const SigninComponent = () => {
                 color: "#000",
                 py: 1.5,
                 fontWeight: 500,
+                borderRadius: "9999px",
                 "&:hover": {
                   backgroundColor: "#e5e5e5",
                 },

@@ -1,18 +1,34 @@
 import { useState } from "react";
 import { TextField, Button, InputAdornment, IconButton } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import backgroundSvg from "../assets/background.svg";
 import zenergyLogo from "../assets/zenergylogo.png";
 import userAvatar from "../assets/user.svg";
 
+const validationSchema = Yup.object({
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required"),
+  password: Yup.string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is required"),
+});
+
 const SigninComponent = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema,
+    onSubmit: (values) => {
+      console.log("Sign in:", values);
+    },
+  });
 
   return (
     <div className="flex flex-col md:flex-row h-screen w-full">
@@ -48,15 +64,19 @@ const SigninComponent = () => {
           </div>
           <h1 className="text-white text-xl sm:text-2xl lg:text-3xl font-semibold mb-2">Welcome back!</h1>
           <p className="text-gray-400 mb-6 sm:mb-8 text-sm sm:text-base">Please enter your details below</p>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={formik.handleSubmit}>
             <div className="mb-4">
               <label className="block text-gray-300 text-sm mb-2">Email Address</label>
               <TextField
                 fullWidth
                 type="email"
+                name="email"
                 placeholder="Enter Email Address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={formik.touched.email && Boolean(formik.errors.email)}
+                helperText={formik.touched.email && formik.errors.email}
                 variant="outlined"
                 size="small"
                 sx={{
@@ -71,9 +91,13 @@ const SigninComponent = () => {
               <TextField
                 fullWidth
                 type={showPassword ? "text" : "password"}
+                name="password"
                 placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={formik.touched.password && Boolean(formik.errors.password)}
+                helperText={formik.touched.password && formik.errors.password}
                 variant="outlined"
                 size="small"
                 sx={{

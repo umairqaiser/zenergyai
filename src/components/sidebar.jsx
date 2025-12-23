@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import zenergyLogo from "../assets/zenergylogo.svg";
+import zenergyLogo from "../assets/zenergylogo.png";
 
 const Sidebar = ({ isOpen, onClose }) => {
   const menuItems = [
@@ -10,7 +10,6 @@ const Sidebar = ({ isOpen, onClose }) => {
 
   return (
     <>
-      {/* Overlay for mobile */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-black/50 z-40 lg:hidden"

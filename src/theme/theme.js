@@ -21,7 +21,7 @@ const theme = createTheme({
         root: {
           "& .MuiOutlinedInput-root": {
             backgroundColor: "#2A2426",
-            borderRadius: "8px",
+            borderRadius: "9999px",
             "& fieldset": {
               borderColor: "#3B3538",
             },
@@ -34,10 +34,15 @@ const theme = createTheme({
           },
           "& .MuiInputBase-input": {
             color: "#fff",
+            padding: "12px 14px",
             "&::placeholder": {
-              color: "#9ca3af",
+              color: "#6b7280",
               opacity: 1,
             },
+          },
+          "& .MuiInputBase-input::placeholder": {
+            color: "#6b7280",
+            opacity: 1,
           },
         },
       },
@@ -46,7 +51,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           textTransform: "none",
-          borderRadius: "8px",
+          borderRadius: "9999px",
         },
         contained: {
           backgroundColor: "#646cff",

@@ -127,11 +127,9 @@ const Sidebar = ({ isOpen, onClose }) => {
                 vertical: "bottom",
                 horizontal: "right",
               }}
-              PaperProps={{
-                sx: {
-                  backgroundColor: "#2A2426",
-                  border: "1px solid #3B3538",
-                  color: "#fff",
+              slotProps={{
+                paper: {
+                  className: "sidebar-menu",
                 },
               }}
             >

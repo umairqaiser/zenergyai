@@ -143,30 +143,14 @@ const NewClientModal = ({ open, onClose }) => {
             <Button
               variant="contained"
               onClick={handleClose}
-              sx={{
-                backgroundColor: "#3B3538",
-                color: "#fff",
-                borderRadius: "9999px",
-                px: 4,
-                "&:hover": {
-                  backgroundColor: "#4B4548",
-                },
-              }}
+              className="modal-cancel-button"
             >
               Cancel
             </Button>
             <Button
               type="submit"
               variant="contained"
-              sx={{
-                backgroundColor: "#fff",
-                color: "#141112",
-                borderRadius: "9999px",
-                px: 4,
-                "&:hover": {
-                  backgroundColor: "#e5e5e5",
-                },
-              }}
+              className="modal-save-button"
             >
               Save
             </Button>

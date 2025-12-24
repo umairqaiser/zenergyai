@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   TextField,
   InputAdornment,
@@ -14,6 +15,8 @@ import { Plus, FileText } from "lucide-react";
 
 const AssesmentHistory = ({ clientName }) => {
   const [page, setPage] = useState(1);
+  const navigate = useNavigate();
+  const { clientId } = useParams();
   const rowsPerPage = 5;
 
   const assessments = [
@@ -57,6 +60,10 @@ const AssesmentHistory = ({ clientName }) => {
     }
   };
 
+  const handleNewAssessment = () => {
+    navigate(`/myclients/${clientId}/${encodeURIComponent(clientName)}/new-assessment`);
+  };
+
   const paginatedAssessments = assessments.slice(
     (page - 1) * rowsPerPage,
     page * rowsPerPage
@@ -72,20 +79,13 @@ const AssesmentHistory = ({ clientName }) => {
           <Button
             variant="contained"
             startIcon={<Plus size={16} />}
+            onClick={handleNewAssessment}
+            className="new-assessment-button"
             sx={{
-              backgroundColor: "#fff",
-              color: "#141112",
-              borderRadius: "9999px",
-              fontFamily: "Inter, sans-serif",
               fontSize: { xs: "12px", sm: "14px" },
-              fontWeight: 600,
-              textTransform: "none",
               px: { xs: 1.5, sm: 2 },
               py: { xs: 0.5, sm: 1 },
               minWidth: "auto",
-              "&:hover": {
-                backgroundColor: "#e5e5e5",
-              },
             }}
           >
             <span className="hidden sm:inline">New Assessment</span>

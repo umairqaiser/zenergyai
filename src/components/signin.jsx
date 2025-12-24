@@ -79,11 +79,7 @@ const SigninComponent = () => {
                 helperText={formik.touched.email && formik.errors.email}
                 variant="outlined"
                 size="small"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    borderRadius: "9999px",
-                  },
-                }}
+                className="signin-textfield"
               />
             </div>
             <div className="mb-4">
@@ -100,11 +96,7 @@ const SigninComponent = () => {
                 helperText={formik.touched.password && formik.errors.password}
                 variant="outlined"
                 size="small"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    borderRadius: "9999px",
-                  },
-                }}
+                className="signin-textfield"
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
@@ -129,22 +121,8 @@ const SigninComponent = () => {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{
-                backgroundColor: "#fff",
-                color: "#141112",
-                py: 1.5,
-                fontFamily: "Inter, sans-serif",
-                fontSize: "14px",
-                fontWeight: 600,
-                lineHeight: "21px",
-                letterSpacing: "0.07px",
-                textAlign: "center",
-                textTransform: "none",
-                borderRadius: "9999px",
-                "&:hover": {
-                  backgroundColor: "#e5e5e5",
-                },
-              }}
+              className="signin-button"
+              sx={{ py: 1.5 }}
             >
               Sign In
             </Button>

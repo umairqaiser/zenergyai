@@ -1,27 +1,65 @@
 import { useState } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useParams } from "react-router-dom";
 import { Button } from "@mui/material";
 import { Import, Plus, ChevronRight } from "lucide-react";
 import NewClientModal from "./newclientmodal";
 import ConnectFormModal from "./connectformmodal";
 
-const Navbar = ({ onMenuClick, clientName }) => {
+const Navbar = ({ onMenuClick, clientName, isNewAssessment }) => {
   const location = useLocation();
+  const { clientId } = useParams();
   const isDashboard = location.pathname === "/dashboard";
   const isMyClients = location.pathname === "/myclients";
-  const isClientDetail = location.pathname.startsWith("/myclients/") && location.pathname !== "/myclients";
+  const isClientDetail =
+    location.pathname.startsWith("/myclients/") &&
+    location.pathname !== "/myclients" &&
+    !isNewAssessment;
   const [modalOpen, setModalOpen] = useState(false);
   const [connectModalOpen, setConnectModalOpen] = useState(false);
 
   const renderBreadcrumb = () => {
-    if (isClientDetail && clientName) {
+    if (isNewAssessment && clientName) {
       return (
-        <div className="flex items-center gap-1 text-sm sm:text-base">
-          <Link to="/dashboard" className="text-gray-400 hover:text-white transition-colors">
+        <div className="flex items-center gap-1 text-xs sm:text-sm md:text-base flex-wrap">
+          <Link
+            to="/dashboard"
+            className="text-gray-400 hover:text-white transition-colors"
+          >
             Dashboard
           </Link>
           <ChevronRight size={16} className="text-gray-400" />
-          <Link to="/myclients" className="text-gray-400 hover:text-white transition-colors">
+          <Link
+            to="/myclients"
+            className="text-gray-400 hover:text-white transition-colors"
+          >
+            My Clients
+          </Link>
+          <ChevronRight size={16} className="text-gray-400" />
+          <Link
+            to={`/myclients/${clientId}/${encodeURIComponent(clientName)}`}
+            className="text-gray-400 hover:text-white transition-colors"
+          >
+            {clientName}
+          </Link>
+          <ChevronRight size={16} className="text-gray-400" />
+          <span className="text-white font-semibold">New Assessment</span>
+        </div>
+      );
+    }
+    if (isClientDetail && clientName) {
+      return (
+        <div className="flex items-center gap-1 text-sm sm:text-base">
+          <Link
+            to="/dashboard"
+            className="text-gray-400 hover:text-white transition-colors"
+          >
+            Dashboard
+          </Link>
+          <ChevronRight size={16} className="text-gray-400" />
+          <Link
+            to="/myclients"
+            className="text-gray-400 hover:text-white transition-colors"
+          >
             My Clients
           </Link>
           <ChevronRight size={16} className="text-gray-400" />
@@ -35,7 +73,7 @@ const Navbar = ({ onMenuClick, clientName }) => {
   const getPageTitle = () => {
     if (isDashboard) return "Dashboard";
     if (isMyClients) return "My Clients";
-    if (isClientDetail) return null;
+    if (isClientDetail || isNewAssessment) return null;
     return "Page";
   };
 
@@ -63,7 +101,7 @@ const Navbar = ({ onMenuClick, clientName }) => {
               />
             </svg>
           </button>
-          {isClientDetail ? (
+          {isClientDetail || isNewAssessment ? (
             renderBreadcrumb()
           ) : (
             <h1
@@ -100,21 +138,11 @@ const Navbar = ({ onMenuClick, clientName }) => {
               variant="contained"
               onClick={() => setModalOpen(true)}
               size={isMyClients ? "small" : "medium"}
+              className="navbar-new-client-button"
               sx={{
-                backgroundColor: "#fff",
-                color: "#141112",
-                borderRadius: "9999px",
-                fontFamily: "Inter, sans-serif",
                 fontSize: isMyClients ? { xs: "11px", sm: "13px" } : "14px",
-                fontWeight: 600,
-                lineHeight: "21px",
-                letterSpacing: "0.07px",
-                textTransform: "none",
                 px: isMyClients ? { xs: 1.5, sm: 2 } : 2,
                 py: isMyClients ? { xs: 0.5, sm: 1 } : 1.5,
-                "&:hover": {
-                  backgroundColor: "#e5e5e5",
-                },
               }}
             >
               <Plus size={16} className="mr-1" />
@@ -124,7 +152,10 @@ const Navbar = ({ onMenuClick, clientName }) => {
         )}
       </header>
       <NewClientModal open={modalOpen} onClose={() => setModalOpen(false)} />
-      <ConnectFormModal open={connectModalOpen} onClose={() => setConnectModalOpen(false)} />
+      <ConnectFormModal
+        open={connectModalOpen}
+        onClose={() => setConnectModalOpen(false)}
+      />
     </>
   );
 };

@@ -97,7 +97,7 @@ const SearchClient = () => {
                 </TableCell>
                 <TableCell>
                   <div className="flex items-center gap-3">
-                    <Avatar sx={{ width: 40, height: 40, bgcolor: "#646cff" }}>
+                    <Avatar className="client-avatar">
                       {client.name.charAt(0)}
                     </Avatar>
                     <div className="flex flex-col">
@@ -126,15 +126,7 @@ const SearchClient = () => {
                     variant="outlined"
                     size="small"
                     startIcon={<VisibilityIcon />}
-                    sx={{
-                      color: "#E8E6E7",
-                      textAlign: "center",
-                      fontFamily: "Inter, sans-serif",
-                      fontSize: "14px",
-                      fontWeight: 600,
-                      lineHeight: "21px",
-                      letterSpacing: "0.07px",
-                    }}
+                    className="view-detail-button"
                   >
                     View Detail
                   </Button>

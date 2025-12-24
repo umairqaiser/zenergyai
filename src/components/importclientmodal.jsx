@@ -206,16 +206,8 @@ const ImportClientModal = ({ open, onClose }) => {
             variant="contained"
             onClick={onClose}
             fullWidth={isMobile}
-            sx={{
-              backgroundColor: "#3B3538",
-              color: "#fff",
-              borderRadius: "9999px",
-              px: 4,
-              py: isMobile ? 1.5 : 1,
-              "&:hover": {
-                backgroundColor: "#4B4548",
-              },
-            }}
+            className="modal-cancel-button"
+            sx={{ py: isMobile ? 1.5 : 1 }}
           >
             Cancel
           </Button>
@@ -224,20 +216,8 @@ const ImportClientModal = ({ open, onClose }) => {
             onClick={handleImport}
             disabled={selectedClients.length === 0}
             fullWidth={isMobile}
-            sx={{
-              backgroundColor: "#fff",
-              color: "#141112",
-              borderRadius: "9999px",
-              px: 4,
-              py: isMobile ? 1.5 : 1,
-              "&:hover": {
-                backgroundColor: "#e5e5e5",
-              },
-              "&:disabled": {
-                backgroundColor: "#6B6568",
-                color: "#9ca3af",
-              },
-            }}
+            className="modal-save-button"
+            sx={{ py: isMobile ? 1.5 : 1 }}
           >
             Import ({selectedClients.length})
           </Button>

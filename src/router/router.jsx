@@ -3,6 +3,7 @@ import Dashboard from "../pages/dashboard";
 import Signin from "../pages/signin";
 import MyClientPage from "../pages/myclient";
 import ClientDetailPage from "../pages/clientdetail";
+import NewAssesmentPage from "../pages/newassesment";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: "/myclients/:clientId/:clientName",
     element: <ClientDetailPage />,
+  },
+  {
+    path: "/myclients/:clientId/:clientName/new-assessment",
+    element: <NewAssesmentPage />,
   },
 ]);
 

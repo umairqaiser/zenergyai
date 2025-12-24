@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Box, TextField, Button } from "@mui/material";
 import { Menu } from "lucide-react";
 import ConnectFormModal from "./connectformmodal";
+import { useClient } from "../context/ClientContext";
 
 const steps = [
   "Intake Form",
@@ -13,6 +14,7 @@ const steps = [
 const NewAssesment = () => {
   const [activeStep] = useState(0);
   const [connectModalOpen, setConnectModalOpen] = useState(false);
+  const { clientData } = useClient();
 
   return (
     <div className="flex flex-col gap-4 min-h-full">
@@ -117,6 +119,7 @@ const NewAssesment = () => {
                 variant="outlined"
                 fullWidth
                 className="assessment-textfield"
+                value={clientData.firstName}
               />
             </div>
             <div className="flex flex-col gap-2">
@@ -126,6 +129,7 @@ const NewAssesment = () => {
                 variant="outlined"
                 fullWidth
                 className="assessment-textfield"
+                value={clientData.lastName}
               />
             </div>
             <div className="flex flex-col gap-2">
@@ -135,6 +139,7 @@ const NewAssesment = () => {
                 variant="outlined"
                 fullWidth
                 className="assessment-textfield"
+                value={clientData.email}
               />
             </div>
             <div className="flex flex-col gap-2">
@@ -144,6 +149,7 @@ const NewAssesment = () => {
                 variant="outlined"
                 fullWidth
                 className="assessment-textfield"
+                value={clientData.phone}
               />
             </div>
           </div>

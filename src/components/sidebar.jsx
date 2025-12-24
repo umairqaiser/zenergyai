@@ -61,10 +61,10 @@ const Sidebar = ({ isOpen, onClose }) => {
                   to={item.path}
                   onClick={onClose}
                   className={({ isActive }) =>
-                    `flex items-center h-10 px-3 py-1 gap-2 self-stretch rounded-md transition ${
+                    `flex items-center h-10 px-3 py-1 gap-2 self-stretch rounded-md transition overflow-hidden text-ellipsis whitespace-nowrap font-[inter] text-sm font-normal leading-[21px] tracking-[0.07px] ${
                       isActive
                         ? "bg-[#3B3538] text-white"
-                        : "text-gray-300 hover:bg-gray-800"
+                        : "text-[#E8E6E7] hover:bg-gray-800"
                     }`
                   }
                 >
@@ -83,10 +83,10 @@ const Sidebar = ({ isOpen, onClose }) => {
                   to={item.path}
                   onClick={onClose}
                   className={({ isActive }) =>
-                    `flex items-center h-10 px-3 py-1 gap-2 self-stretch rounded-md transition ${
+                    `flex items-center h-10 px-3 py-1 gap-2 self-stretch rounded-md transition overflow-hidden text-ellipsis whitespace-nowrap font-[inter] text-sm font-normal leading-[21px] tracking-[0.07px] ${
                       isActive
                         ? "bg-[#3B3538] text-white"
-                        : "text-gray-300 hover:bg-gray-800"
+                        : "text-[#E8E6E7] hover:bg-gray-800"
                     }`
                   }
                 >

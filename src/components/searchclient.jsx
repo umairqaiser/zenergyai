@@ -16,8 +16,7 @@ import {
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import arrowGray from "../assets/arrowgray.svg";
 
 const SearchClient = () => {
   const [page, setPage] = useState(1);
@@ -33,8 +32,8 @@ const SearchClient = () => {
   const clients = [
     {
       id: 1,
-      name: "John Doe",
-      email: "john.doe@example.com",
+      name: "Jack Harlow",
+      email: "jack@gmail.com",
       phone: "+1 234 567 890",
       assessments: 1,
       lastActivity: "2025-10-20",
@@ -81,7 +80,12 @@ const SearchClient = () => {
                 <Checkbox />
               </TableCell>
               {columns.map((column) => (
-                <TableCell key={column}>{column}</TableCell>
+                <TableCell key={column}>
+                  <div className="flex items-center gap-2">
+                    {column}
+                    <img src={arrowGray} alt="sort" className="w-4 h-4" />
+                  </div>
+                </TableCell>
               ))}
             </TableRow>
           </TableHead>
@@ -97,19 +101,40 @@ const SearchClient = () => {
                       {client.name.charAt(0)}
                     </Avatar>
                     <div className="flex flex-col">
-                      <span className="text-white">{client.name}</span>
-                      <span className="text-gray-400 text-sm">{client.email}</span>
+                      <span className="text-white font-[inter] text-sm font-semibold leading-[21px] tracking-[0.07px]">{client.name}</span>
+                      <span className="text-white font-[inter] text-sm font-normal leading-[21px] tracking-[0.07px]">{client.email}</span>
                     </div>
                   </div>
                 </TableCell>
-                <TableCell>{client.phone}</TableCell>
-                <TableCell>{client.assessments} Assessment</TableCell>
-                <TableCell>{client.lastActivity}</TableCell>
+                <TableCell>
+                  <span className="text-white font-[inter] text-sm font-normal leading-[21px] tracking-[0.07px]">
+                    {client.phone}
+                  </span>
+                </TableCell>
+                <TableCell>
+                  <span className="text-white font-[inter] text-sm font-normal leading-[21px] tracking-[0.07px]">
+                    {client.assessments} Assessment
+                  </span>
+                </TableCell>
+                <TableCell>
+                  <span className="text-white font-[inter] text-sm font-normal leading-[21px] tracking-[0.07px]">
+                    {client.lastActivity}
+                  </span>
+                </TableCell>
                 <TableCell>
                   <Button
                     variant="outlined"
                     size="small"
                     startIcon={<VisibilityIcon />}
+                    sx={{
+                      color: "#E8E6E7",
+                      textAlign: "center",
+                      fontFamily: "Inter, sans-serif",
+                      fontSize: "14px",
+                      fontWeight: 600,
+                      lineHeight: "21px",
+                      letterSpacing: "0.07px",
+                    }}
                   >
                     View Detail
                   </Button>

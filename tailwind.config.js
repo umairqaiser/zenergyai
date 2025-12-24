@@ -5,7 +5,12 @@ export default {
     "./src/**/*.{js,jsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+        jakarta: ["Plus Jakarta Sans"],
+        cabinet: ["CabinetGrotesk"],
+        inter: ["Inter"],
+        playfair: ["Playfair Display"],
+    },
   },
   plugins: [],
 }

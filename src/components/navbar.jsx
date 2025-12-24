@@ -1,20 +1,45 @@
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { Button } from "@mui/material";
-import { Import } from "lucide-react";
+import { Import, Plus, ChevronRight } from "lucide-react";
 import NewClientModal from "./newclientmodal";
+import ConnectFormModal from "./connectformmodal";
 
-const Navbar = ({ onMenuClick }) => {
+const Navbar = ({ onMenuClick, clientName }) => {
   const location = useLocation();
   const isDashboard = location.pathname === "/dashboard";
   const isMyClients = location.pathname === "/myclients";
+  const isClientDetail = location.pathname.startsWith("/myclients/") && location.pathname !== "/myclients";
   const [modalOpen, setModalOpen] = useState(false);
+  const [connectModalOpen, setConnectModalOpen] = useState(false);
+
+  const renderBreadcrumb = () => {
+    if (isClientDetail && clientName) {
+      return (
+        <div className="flex items-center gap-1 text-sm sm:text-base">
+          <Link to="/dashboard" className="text-gray-400 hover:text-white transition-colors">
+            Dashboard
+          </Link>
+          <ChevronRight size={16} className="text-gray-400" />
+          <Link to="/myclients" className="text-gray-400 hover:text-white transition-colors">
+            My Clients
+          </Link>
+          <ChevronRight size={16} className="text-gray-400" />
+          <span className="text-white font-semibold">{clientName}</span>
+        </div>
+      );
+    }
+    return null;
+  };
 
   const getPageTitle = () => {
     if (isDashboard) return "Dashboard";
     if (isMyClients) return "My Clients";
+    if (isClientDetail) return null;
     return "Page";
   };
+
+  const pageTitle = getPageTitle();
 
   return (
     <>
@@ -38,15 +63,19 @@ const Navbar = ({ onMenuClick }) => {
               />
             </svg>
           </button>
-          <h1
-            className={`font-semibold text-[#FFF] ${
-              isMyClients
-                ? "text-sm sm:text-base md:text-lg"
-                : "text-lg md:text-xl"
-            }`}
-          >
-            {getPageTitle()}
-          </h1>
+          {isClientDetail ? (
+            renderBreadcrumb()
+          ) : (
+            <h1
+              className={`text-white font-[inter] text-[20px] font-semibold leading-[24px] ${
+                isMyClients
+                  ? "text-sm sm:text-base md:text-lg"
+                  : "text-lg md:text-xl"
+              }`}
+            >
+              {pageTitle}
+            </h1>
+          )}
         </div>
         {(isDashboard || isMyClients) && (
           <div className="flex items-center gap-2 sm:gap-3">
@@ -55,6 +84,7 @@ const Navbar = ({ onMenuClick }) => {
                 variant="contained"
                 className="import-client-button"
                 size="small"
+                onClick={() => setConnectModalOpen(true)}
                 sx={{
                   fontSize: { xs: "11px", sm: "13px" },
                   px: { xs: 1, sm: 2 },
@@ -87,12 +117,14 @@ const Navbar = ({ onMenuClick }) => {
                 },
               }}
             >
-              + New Client
+              <Plus size={16} className="mr-1" />
+              New Client
             </Button>
           </div>
         )}
       </header>
       <NewClientModal open={modalOpen} onClose={() => setModalOpen(false)} />
+      <ConnectFormModal open={connectModalOpen} onClose={() => setConnectModalOpen(false)} />
     </>
   );
 };

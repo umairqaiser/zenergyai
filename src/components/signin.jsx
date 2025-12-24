@@ -44,11 +44,11 @@ const SigninComponent = () => {
               className="w-8 h-8 lg:w-10 lg:h-10 rounded-full"
             />
             <div>
-              <p className="text-white font-medium text-xs lg:text-sm">Jason Zhou (AI Jason)</p>
-              <p className="text-gray-400 text-xs">@jasonzhou1993</p>
+              <p className="text-white font-[inter] text-sm font-medium leading-[21px] tracking-[0.07px] lg:text-sm">Jason Zhou (AI Jason)</p>
+              <p className="text-[#E8E6E7] font-[inter] text-sm font-normal leading-[21px] tracking-[0.07px]">@jasonzhou1993</p>
             </div>
           </div>
-          <p className="text-gray-300 text-xs lg:text-sm leading-relaxed">
+          <p className="text-white font-[inter] text-sm font-normal leading-[21px] tracking-[0.07px] lg:text-sm leading-relaxed">
             Vulputate leo amet sapien augue consequat morbi nunc amet consequat. Pellentesque lorem curabitur at pharetra. Diam mattis mauris tellus orci gravida sociis turpis risus. Orci nisi posuere purus porta. A at amet venenatis tortor mauris accumsan. Tortor semper facilisi ipsum quis egestas libero nunc tortor.
           </p>
         </div>
@@ -62,11 +62,11 @@ const SigninComponent = () => {
               className="h-8 sm:h-10"
             />
           </div>
-          <h1 className="text-white text-xl sm:text-2xl lg:text-3xl font-semibold mb-2">Welcome back!</h1>
-          <p className="text-gray-400 mb-6 sm:mb-8 text-sm sm:text-base">Please enter your details below</p>
+          <h1 className="text-white font-[inter] text-[30px] font-semibold leading-[30px] tracking-[-1px] sm:text-2xl lg:text-3xl font-semibold mb-2">Welcome back!</h1>
+          <p className="text-[#D1CDCF] font-[inter] text-base font-normal leading-[24px] tracking-[0px] mb-6 sm:mb-8 text-sm sm:text-base">Please enter your details below</p>
           <form onSubmit={formik.handleSubmit}>
             <div className="mb-4">
-              <label className="block text-gray-300 text-sm mb-2">Email Address</label>
+              <label className="block text-[#F8FAFC] font-[inter] text-sm font-medium leading-[21px] tracking-[0.07px] mb-2">Email Address</label>
               <TextField
                 fullWidth
                 type="email"
@@ -87,7 +87,7 @@ const SigninComponent = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-300 text-sm mb-2">Password</label>
+              <label className="block text-[#F8FAFC] font-[inter] text-sm font-medium leading-[21px] tracking-[0.07px] mb-2">Password</label>
               <TextField
                 fullWidth
                 type={showPassword ? "text" : "password"}
@@ -121,7 +121,7 @@ const SigninComponent = () => {
               />
             </div>
             <div className="text-right mb-6">
-              <a href="#" className="text-gray-400 text-sm hover:text-white transition-colors">
+              <a href="#" className="text-white font-[inter] text-sm font-medium leading-[21px] tracking-[0.07px] hover:text-white transition-colors">
                 Forgot Password?
               </a>
             </div>
@@ -131,9 +131,15 @@ const SigninComponent = () => {
               variant="contained"
               sx={{
                 backgroundColor: "#fff",
-                color: "#000",
+                color: "#141112",
                 py: 1.5,
-                fontWeight: 500,
+                fontFamily: "Inter, sans-serif",
+                fontSize: "14px",
+                fontWeight: 600,
+                lineHeight: "21px",
+                letterSpacing: "0.07px",
+                textAlign: "center",
+                textTransform: "none",
                 borderRadius: "9999px",
                 "&:hover": {
                   backgroundColor: "#e5e5e5",

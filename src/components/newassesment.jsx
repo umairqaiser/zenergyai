@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Box, TextField, Button } from "@mui/material";
 import { Menu } from "lucide-react";
 import ConnectFormModal from "./connectformmodal";
@@ -12,7 +12,29 @@ const NewAssesment = () => {
   const [connectModalOpen, setConnectModalOpen] = useState(false);
   const [modalityModalOpen, setModalityModalOpen] = useState(false);
   const [selectedModalities, setSelectedModalities] = useState([]);
-  const { clientData } = useClient();
+  const { clientData, updateClientData } = useClient();
+
+  const [personalDetails, setPersonalDetails] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+  });
+
+  useEffect(() => {
+    setPersonalDetails({
+      firstName: clientData.firstName || "",
+      lastName: clientData.lastName || "",
+      email: clientData.email || "",
+      phone: clientData.phone || "",
+    });
+  }, [clientData]);
+
+  const handlePersonalDetailsChange = (field) => (event) => {
+    const newDetails = { ...personalDetails, [field]: event.target.value };
+    setPersonalDetails(newDetails);
+    updateClientData(newDetails);
+  };
 
   const handleStepClick = (index) => {
     setActiveStep(index);
@@ -147,8 +169,8 @@ const NewAssesment = () => {
                     variant="outlined"
                     fullWidth
                     className="assessment-textfield"
-                    value={clientData.firstName}
-                    disabled
+                    value={personalDetails.firstName}
+                    onChange={handlePersonalDetailsChange("firstName")}
                     size="small"
                   />
                 </div>
@@ -159,8 +181,8 @@ const NewAssesment = () => {
                     variant="outlined"
                     fullWidth
                     className="assessment-textfield"
-                    value={clientData.lastName}
-                    disabled
+                    value={personalDetails.lastName}
+                    onChange={handlePersonalDetailsChange("lastName")}
                     size="small"
                   />
                 </div>
@@ -171,8 +193,8 @@ const NewAssesment = () => {
                     variant="outlined"
                     fullWidth
                     className="assessment-textfield"
-                    value={clientData.email}
-                    disabled
+                    value={personalDetails.email}
+                    onChange={handlePersonalDetailsChange("email")}
                     size="small"
                   />
                 </div>
@@ -183,8 +205,8 @@ const NewAssesment = () => {
                     variant="outlined"
                     fullWidth
                     className="assessment-textfield"
-                    value={clientData.phone}
-                    disabled
+                    value={personalDetails.phone}
+                    onChange={handlePersonalDetailsChange("phone")}
                     size="small"
                   />
                 </div>

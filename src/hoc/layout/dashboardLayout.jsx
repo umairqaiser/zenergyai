@@ -6,15 +6,15 @@ const DashboardLayout = ({ children, clientName, isNewAssessment }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="flex min-h-screen bg-neutral-950">
+    <div className="min-h-screen bg-neutral-950 overflow-x-hidden">
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-      <div className="flex-1 flex flex-col w-full lg:w-auto">
+      <div className="flex flex-col min-h-screen lg:ml-64">
         <Navbar
           onMenuClick={() => setSidebarOpen(true)}
           clientName={clientName}
           isNewAssessment={isNewAssessment}
         />
-        <main className="flex-1 p-4 md:p-6 overflow-x-hidden">{children}</main>
+        <main className="flex-1 p-4 md:p-6">{children}</main>
       </div>
     </div>
   );

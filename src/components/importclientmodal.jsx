@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import arrowGray from "../assets/arrowgray.svg";
+import { IMPORT_CLIENT_TABLE_COLUMNS, MOCK_IMPORT_CLIENTS } from "../constant/constant";
 
 const ImportClientModal = ({ open, onClose }) => {
   const [selectedClients, setSelectedClients] = useState([]);
@@ -24,20 +25,10 @@ const ImportClientModal = ({ open, onClose }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const isTablet = useMediaQuery(theme.breakpoints.down("md"));
 
-  const clients = [
-    {
-      id: 1,
-      firstName: "Jack",
-      lastName: "Halow",
-      email: "jack@example.com",
-      phone: "+16467980373",
-    },
-  ];
-
   const handleSelectAll = (event) => {
     setSelectAll(event.target.checked);
     if (event.target.checked) {
-      setSelectedClients(clients.map((client) => client.id));
+      setSelectedClients(MOCK_IMPORT_CLIENTS.map((client) => client.id));
     } else {
       setSelectedClients([]);
     }
@@ -48,7 +39,7 @@ const ImportClientModal = ({ open, onClose }) => {
       ? selectedClients.filter((id) => id !== clientId)
       : [...selectedClients, clientId];
     setSelectedClients(newSelected);
-    setSelectAll(newSelected.length === clients.length);
+    setSelectAll(newSelected.length === MOCK_IMPORT_CLIENTS.length);
   };
 
   const handleImport = () => {
@@ -125,13 +116,13 @@ const ImportClientModal = ({ open, onClose }) => {
                 onChange={handleSelectAll}
                 indeterminate={
                   selectedClients.length > 0 &&
-                  selectedClients.length < clients.length
+                  selectedClients.length < MOCK_IMPORT_CLIENTS.length
                 }
                 sx={{ padding: 0 }}
               />
               <span className="text-gray-400 text-sm">Select All</span>
             </div>
-            {clients.map((client) => (
+            {MOCK_IMPORT_CLIENTS.map((client) => (
               <MobileClientCard key={client.id} client={client} />
             ))}
           </div>
@@ -149,38 +140,22 @@ const ImportClientModal = ({ open, onClose }) => {
                       onChange={handleSelectAll}
                       indeterminate={
                         selectedClients.length > 0 &&
-                        selectedClients.length < clients.length
+                        selectedClients.length < MOCK_IMPORT_CLIENTS.length
                       }
                     />
                   </TableCell>
-                  <TableCell className="import-table-cell">
-                    <div className="flex items-center gap-2 whitespace-nowrap">
-                      First Name
-                      <img src={arrowGray} alt="sort" className="w-4 h-4" />
-                    </div>
-                  </TableCell>
-                  <TableCell className="import-table-cell">
-                    <div className="flex items-center gap-2 whitespace-nowrap">
-                      Last Name
-                      <img src={arrowGray} alt="sort" className="w-4 h-4" />
-                    </div>
-                  </TableCell>
-                  <TableCell className="import-table-cell">
-                    <div className="flex items-center gap-2 whitespace-nowrap">
-                      Email Address
-                      <img src={arrowGray} alt="sort" className="w-4 h-4" />
-                    </div>
-                  </TableCell>
-                  <TableCell className="import-table-cell">
-                    <div className="flex items-center gap-2 whitespace-nowrap">
-                      Phone Number
-                      <img src={arrowGray} alt="sort" className="w-4 h-4" />
-                    </div>
-                  </TableCell>
+                  {IMPORT_CLIENT_TABLE_COLUMNS.map((column) => (
+                    <TableCell key={column} className="import-table-cell">
+                      <div className="flex items-center gap-2 whitespace-nowrap">
+                        {column}
+                        <img src={arrowGray} alt="sort" className="w-4 h-4" />
+                      </div>
+                    </TableCell>
+                  ))}
                 </TableRow>
               </TableHead>
               <TableBody>
-                {clients.map((client) => (
+                {MOCK_IMPORT_CLIENTS.map((client) => (
                   <TableRow key={client.id}>
                     <TableCell padding="checkbox">
                       <Checkbox

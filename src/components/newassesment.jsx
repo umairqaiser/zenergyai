@@ -2,50 +2,73 @@ import { useState } from "react";
 import { Box, TextField, Button } from "@mui/material";
 import { Menu } from "lucide-react";
 import ConnectFormModal from "./connectformmodal";
+import ManualDataInput from "./manualdatainput";
+import SelectModalityTestModal from "./selectmodalitytestmodal";
 import { useClient } from "../context/ClientContext";
-
-const steps = [
-  "Intake Form",
-  "Manual Data Input",
-  "Upload Data Files",
-  "Review",
-];
+import { ASSESSMENT_STEPS } from "../constant/constant";
 
 const NewAssesment = () => {
-  const [activeStep] = useState(0);
+  const [activeStep, setActiveStep] = useState(0);
   const [connectModalOpen, setConnectModalOpen] = useState(false);
+  const [modalityModalOpen, setModalityModalOpen] = useState(false);
+  const [selectedModalities, setSelectedModalities] = useState([]);
   const { clientData } = useClient();
+
+  const handleStepClick = (index) => {
+    setActiveStep(index);
+  };
+
+  const handleBack = () => {
+    if (activeStep > 0) {
+      setActiveStep(activeStep - 1);
+    }
+  };
+
+  const handleContinue = () => {
+    if (activeStep < ASSESSMENT_STEPS.length - 1) {
+      setModalityModalOpen(true);
+    }
+  };
+
+  const handleModalityConfirm = (tests) => {
+    setSelectedModalities(tests);
+    setActiveStep(activeStep + 1);
+  };
 
   return (
     <div className="flex flex-col gap-4 min-h-full">
-      <div className="flex items-center self-stretch p-3 rounded-[9px] bg-[#2A2426]">
-        <div className="flex items-center w-full">
-          {steps.map((label, index) => (
+      <div className="flex items-center self-stretch p-2 sm:p-3 rounded-[9px] bg-neutral-800 overflow-x-auto scrollbar-thin">
+        <div className="flex items-center w-full min-w-max gap-1 sm:gap-0">
+          {ASSESSMENT_STEPS.map((label, index) => (
             <Box
               key={label}
+              onClick={() => handleStepClick(index)}
               sx={{
                 display: "flex",
                 alignItems: "center",
-                gap: "8px",
-                padding: "8px 16px",
+                gap: { xs: "4px", sm: "8px" },
+                padding: { xs: "6px 10px", sm: "8px 16px" },
                 borderRadius: "8px",
                 backgroundColor: index === activeStep ? "#3B3538" : "transparent",
-                marginRight: index < steps.length - 1 ? "24px" : 0,
+                marginRight: { xs: "4px", sm: index < ASSESSMENT_STEPS.length - 1 ? "24px" : 0 },
+                cursor: "pointer",
+                flexShrink: 0,
               }}
             >
               <Box
                 sx={{
-                  width: "28px",
-                  height: "28px",
-                  borderRadius: "8px",
+                  width: { xs: "20px", sm: "28px" },
+                  height: { xs: "20px", sm: "28px" },
+                  borderRadius: { xs: "6px", sm: "8px" },
                   border: index === activeStep ? "1px solid #fff" : "1px solid #6B6568",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   color: index === activeStep ? "#fff" : "#6B6568",
                   fontFamily: "Inter, sans-serif",
-                  fontSize: "12px",
+                  fontSize: { xs: "9px", sm: "12px" },
                   fontWeight: 600,
+                  flexShrink: 0,
                 }}
               >
                 {index + 1}
@@ -54,10 +77,12 @@ const NewAssesment = () => {
                 style={{
                   color: index === activeStep ? "#fff" : "#9ca3af",
                   fontFamily: "Inter, sans-serif",
-                  fontSize: "14px",
+                  fontSize: window.innerWidth < 640 ? "11px" : "14px",
                   fontWeight: index === activeStep ? 600 : 500,
                   textDecoration: "underline",
+                  whiteSpace: "nowrap",
                 }}
+                className="text-[11px] sm:text-sm"
               >
                 {label}
               </span>
@@ -65,107 +90,149 @@ const NewAssesment = () => {
           ))}
         </div>
       </div>
-      <div className="flex items-center justify-between self-stretch p-4 rounded-[9px] bg-[#2A2426]">
-        <div className="flex items-center gap-3">
-          <Box
-            sx={{
-              width: "40px",
-              height: "40px",
-              borderRadius: "8px",
-              border: "1px solid #3B3538",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              backgroundColor: "transparent",
-            }}
-          >
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#9ca3af"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+      {activeStep === 0 && (
+        <>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between self-stretch p-3 sm:p-4 rounded-[9px] bg-neutral-800 gap-3 sm:gap-0">
+            <div className="flex items-center gap-3">
+              <Box
+                sx={{
+                  width: { xs: "36px", sm: "40px" },
+                  height: { xs: "36px", sm: "40px" },
+                  borderRadius: "8px",
+                  border: "1px solid #3B3538",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: "transparent",
+                  flexShrink: 0,
+                }}
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#9ca3af"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                </svg>
+              </Box>
+              <div className="flex flex-col">
+                <span className="text-white font-medium text-xs sm:text-sm">Connect Intake Form</span>
+                <span className="text-neutral-400 text-[10px] sm:text-xs">Connect your intake form to fetch data</span>
+              </div>
+            </div>
+            <button
+              className="px-3 sm:px-4 py-2 rounded-lg bg-white text-black text-xs sm:text-sm font-medium hover:bg-gray-200 transition-colors w-full sm:w-auto"
+              onClick={() => setConnectModalOpen(true)}
             >
-              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-            </svg>
-          </Box>
-          <div className="flex flex-col">
-            <span className="text-white font-medium text-sm">Connect Intake Form</span>
-            <span className="text-gray-400 text-xs">Connect your intake form to fetch data</span>
+              Connect
+            </button>
           </div>
-        </div>
-        <button
-          className="px-4 py-2 rounded-lg bg-white text-black text-sm font-medium hover:bg-gray-200 transition-colors"
-          onClick={() => setConnectModalOpen(true)}
-        >
-          Connect
-        </button>
-      </div>
-      <div className="flex flex-col self-stretch rounded-[9px] bg-[#2A2426]">
-        <div className="flex items-center gap-2 p-4 border-b border-[#3B3538]">
-          <Menu size={20} className="text-white" />
-          <span className="text-white font-medium text-base">Personal Details</span>
-        </div>
-        <div className="p-4">
-          <div className="grid grid-cols-2 gap-4">
-            <div className="flex flex-col gap-2">
-              <label className="text-white text-sm font-medium">First Name</label>
-              <TextField
-                placeholder="Enter First Name"
-                variant="outlined"
-                fullWidth
-                className="assessment-textfield"
-                value={clientData.firstName}
-              />
+          <div className="flex flex-col self-stretch rounded-[9px] bg-neutral-800">
+            <div className="flex items-center gap-2 p-3 sm:p-4 border-b border-neutral-700">
+              <Menu size={18} className="text-white sm:w-5 sm:h-5" />
+              <span className="text-white font-medium text-sm sm:text-base">Personal Details</span>
             </div>
-            <div className="flex flex-col gap-2">
-              <label className="text-white text-sm font-medium">Last Name</label>
-              <TextField
-                placeholder="Enter Last Name"
-                variant="outlined"
-                fullWidth
-                className="assessment-textfield"
-                value={clientData.lastName}
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <label className="text-white text-sm font-medium">Email Address</label>
-              <TextField
-                placeholder="Enter Email Address"
-                variant="outlined"
-                fullWidth
-                className="assessment-textfield"
-                value={clientData.email}
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <label className="text-white text-sm font-medium">Phone Number</label>
-              <TextField
-                placeholder="Enter Phone Number"
-                variant="outlined"
-                fullWidth
-                className="assessment-textfield"
-                value={clientData.phone}
-              />
+            <div className="p-3 sm:p-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                <div className="flex flex-col gap-2">
+                  <label className="text-white text-xs sm:text-sm font-medium">First Name</label>
+                  <TextField
+                    placeholder="Enter First Name"
+                    variant="outlined"
+                    fullWidth
+                    className="assessment-textfield"
+                    value={clientData.firstName}
+                    disabled
+                    size="small"
+                  />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <label className="text-white text-xs sm:text-sm font-medium">Last Name</label>
+                  <TextField
+                    placeholder="Enter Last Name"
+                    variant="outlined"
+                    fullWidth
+                    className="assessment-textfield"
+                    value={clientData.lastName}
+                    disabled
+                    size="small"
+                  />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <label className="text-white text-xs sm:text-sm font-medium">Email Address</label>
+                  <TextField
+                    placeholder="Enter Email Address"
+                    variant="outlined"
+                    fullWidth
+                    className="assessment-textfield"
+                    value={clientData.email}
+                    disabled
+                    size="small"
+                  />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <label className="text-white text-xs sm:text-sm font-medium">Phone Number</label>
+                  <TextField
+                    placeholder="Enter Phone Number"
+                    variant="outlined"
+                    fullWidth
+                    className="assessment-textfield"
+                    value={clientData.phone}
+                    disabled
+                    size="small"
+                  />
+                </div>
+              </div>
             </div>
           </div>
+        </>
+      )}
+
+      {activeStep === 1 && <ManualDataInput selectedModalities={selectedModalities} />}
+
+      {activeStep === 2 && (
+        <div className="flex flex-col self-stretch rounded-[9px] bg-neutral-800 p-8">
+          <p className="text-neutral-400 text-center">Upload Data Files - Coming Soon</p>
         </div>
-      </div>
+      )}
+
+      {activeStep === 3 && (
+        <div className="flex flex-col self-stretch rounded-[9px] bg-neutral-800 p-8">
+          <p className="text-neutral-400 text-center">Review - Coming Soon</p>
+        </div>
+      )}
 
       <ConnectFormModal
         open={connectModalOpen}
         onClose={() => setConnectModalOpen(false)}
       />
+      <SelectModalityTestModal
+        open={modalityModalOpen}
+        onClose={() => setModalityModalOpen(false)}
+        onConfirm={handleModalityConfirm}
+      />
       <div className="flex-grow"></div>
       <div className="flex items-center justify-between self-stretch mt-auto pt-4">
-        <Button variant="contained" className="assessment-back-button">
+        <Button
+          variant="contained"
+          className="assessment-back-button"
+          onClick={handleBack}
+          disabled={activeStep === 0}
+        >
           Back
         </Button>
-        <Button variant="contained" className="assessment-continue-button">
+        <Button
+          variant="contained"
+          className="assessment-continue-button"
+          onClick={handleContinue}
+          disabled={activeStep === ASSESSMENT_STEPS.length - 1}
+        >
           Continue
         </Button>
       </div>

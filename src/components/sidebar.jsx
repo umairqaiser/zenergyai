@@ -9,6 +9,19 @@ import clientIcon from "../assets/clienticon.svg";
 import assessmentIcon from "../assets/assesmenticon.svg";
 import settingIcon from "../assets/settingicon.svg";
 import helpIcon from "../assets/helpicon.svg";
+import {
+  SIDEBAR_MENU_ITEMS,
+  SIDEBAR_BOTTOM_MENU_ITEMS,
+  USER_MENU_OPTIONS,
+} from "../constant/constant";
+
+const iconMap = {
+  dashboardIcon,
+  clientIcon,
+  assessmentIcon,
+  settingIcon,
+  helpIcon,
+};
 
 const Sidebar = ({ isOpen, onClose }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -22,17 +35,6 @@ const Sidebar = ({ isOpen, onClose }) => {
     setAnchorEl(null);
   };
 
-  const menuItems = [
-    { name: "Dashboard", path: "/dashboard", icon: dashboardIcon },
-    { name: "My Clients", path: "/myclients", icon: clientIcon },
-    { name: "New Assessment", path: "/new-assessment", icon: assessmentIcon },
-  ];
-
-  const bottomMenuItems = [
-    { name: "Settings", path: "/settings", icon: settingIcon },
-    { name: "Get Help", path: "/help", icon: helpIcon },
-  ];
-
   return (
     <>
       {isOpen && (
@@ -43,7 +45,7 @@ const Sidebar = ({ isOpen, onClose }) => {
       )}
 
       <aside
-        className={`fixed lg:static inset-y-0 left-0 z-50 w-64 min-h-screen bg-[#2A2426] text-white flex flex-col border-r border-[#3B3538] transform transition-transform duration-300 ease-in-out ${
+        className={`fixed lg:static inset-y-0 left-0 z-50 w-64 min-h-screen bg-neutral-800 text-white flex flex-col border-r border-neutral-700 transform transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         }`}
       >
@@ -55,42 +57,42 @@ const Sidebar = ({ isOpen, onClose }) => {
         </div>
         <nav className="flex-1 px-4 py-6">
           <ul className="space-y-2">
-            {menuItems.map((item) => (
+            {SIDEBAR_MENU_ITEMS.map((item) => (
               <li key={item.name}>
                 <NavLink
                   to={item.path}
                   onClick={onClose}
                   className={({ isActive }) =>
-                    `flex items-center h-10 px-3 py-1 gap-2 self-stretch rounded-md transition overflow-hidden text-ellipsis whitespace-nowrap font-[inter] text-sm font-normal leading-[21px] tracking-[0.07px] ${
+                    `flex items-center h-10 px-3 py-1 gap-2 self-stretch rounded-md transition overflow-hidden text-ellipsis whitespace-nowrap font-inter text-sm font-normal leading-[21px] tracking-[0.07px] ${
                       isActive
-                        ? "bg-[#3B3538] text-white"
-                        : "text-[#E8E6E7] hover:bg-gray-800"
+                        ? "bg-neutral-700 text-white"
+                        : "text-neutral-100 hover:bg-gray-800"
                     }`
                   }
                 >
-                  <img src={item.icon} alt={item.name} className="w-5 h-5" />
+                  <img src={iconMap[item.icon]} alt={item.name} className="w-5 h-5" />
                   {item.name}
                 </NavLink>
               </li>
             ))}
           </ul>
         </nav>
-        <div className="px-4 pb-4 border-[#3B3538] pt-4">
+        <div className="px-4 pb-4 border-neutral-700 pt-4">
           <ul className="space-y-2 mb-4">
-            {bottomMenuItems.map((item) => (
+            {SIDEBAR_BOTTOM_MENU_ITEMS.map((item) => (
               <li key={item.name}>
                 <NavLink
                   to={item.path}
                   onClick={onClose}
                   className={({ isActive }) =>
-                    `flex items-center h-10 px-3 py-1 gap-2 self-stretch rounded-md transition overflow-hidden text-ellipsis whitespace-nowrap font-[inter] text-sm font-normal leading-[21px] tracking-[0.07px] ${
+                    `flex items-center h-10 px-3 py-1 gap-2 self-stretch rounded-md transition overflow-hidden text-ellipsis whitespace-nowrap font-inter text-sm font-normal leading-[21px] tracking-[0.07px] ${
                       isActive
-                        ? "bg-[#3B3538] text-white"
-                        : "text-[#E8E6E7] hover:bg-gray-800"
+                        ? "bg-neutral-700 text-white"
+                        : "text-neutral-100 hover:bg-gray-800"
                     }`
                   }
                 >
-                  <img src={item.icon} alt={item.name} className="w-5 h-5" />
+                  <img src={iconMap[item.icon]} alt={item.name} className="w-5 h-5" />
                   {item.name}
                 </NavLink>
               </li>
@@ -133,9 +135,11 @@ const Sidebar = ({ isOpen, onClose }) => {
                 },
               }}
             >
-              <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-              <MenuItem onClick={handleMenuClose}>Account Settings</MenuItem>
-              <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+              {USER_MENU_OPTIONS.map((option) => (
+                <MenuItem key={option} onClick={handleMenuClose}>
+                  {option}
+                </MenuItem>
+              ))}
             </Menu>
           </div>
         </div>

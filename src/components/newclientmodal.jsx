@@ -9,6 +9,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useClient } from "../context/ClientContext";
+import { NEW_CLIENT_INITIAL_VALUES } from "../constant/constant";
 
 const validationSchema = Yup.object({
   firstName: Yup.string()
@@ -30,12 +31,7 @@ const NewClientModal = ({ open, onClose }) => {
   const { updateClientData } = useClient();
 
   const formik = useFormik({
-    initialValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-    },
+    initialValues: NEW_CLIENT_INITIAL_VALUES,
     validationSchema,
     onSubmit: (values) => {
       console.log("Saving client:", values);

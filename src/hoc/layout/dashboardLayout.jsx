@@ -6,7 +6,7 @@ const DashboardLayout = ({ children, clientName, isNewAssessment }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="flex min-h-screen bg-[#141112]">
+    <div className="flex min-h-screen bg-neutral-950">
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
       <div className="flex-1 flex flex-col w-full lg:w-auto">
         <Navbar

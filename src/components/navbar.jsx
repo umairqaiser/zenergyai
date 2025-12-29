@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useLocation, Link, useParams } from "react-router-dom";
 import { Button } from "@mui/material";
 import { Import, Plus, ChevronRight } from "lucide-react";
 import NewClientModal from "./newclientmodal";
 import ConnectFormModal from "./connectformmodal";
+import EditIcon from "../assets/edit.svg";
 
 const Navbar = ({ onMenuClick, clientName, isNewAssessment }) => {
   const location = useLocation();
@@ -16,6 +17,33 @@ const Navbar = ({ onMenuClick, clientName, isNewAssessment }) => {
     !isNewAssessment;
   const [modalOpen, setModalOpen] = useState(false);
   const [connectModalOpen, setConnectModalOpen] = useState(false);
+  const [assessmentName, setAssessmentName] = useState("New Assessment");
+  const [isEditingAssessment, setIsEditingAssessment] = useState(false);
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (isEditingAssessment && inputRef.current) {
+      inputRef.current.focus();
+      inputRef.current.select();
+    }
+  }, [isEditingAssessment]);
+
+  const handleAssessmentNameChange = (e) => {
+    setAssessmentName(e.target.value);
+  };
+
+  const handleAssessmentKeyDown = (e) => {
+    if (e.key === "Enter") {
+      setIsEditingAssessment(false);
+    }
+    if (e.key === "Escape") {
+      setIsEditingAssessment(false);
+    }
+  };
+
+  const handleAssessmentBlur = () => {
+    setIsEditingAssessment(false);
+  };
 
   const renderBreadcrumb = () => {
     if (isNewAssessment && clientName) {
@@ -42,7 +70,30 @@ const Navbar = ({ onMenuClick, clientName, isNewAssessment }) => {
             {clientName}
           </Link>
           <ChevronRight size={16} className="text-gray-400" />
-          <span className="text-white font-semibold">New Assessment</span>
+          <div className="flex items-center gap-2">
+            {isEditingAssessment ? (
+              <input
+                ref={inputRef}
+                type="text"
+                value={assessmentName}
+                onChange={handleAssessmentNameChange}
+                onKeyDown={handleAssessmentKeyDown}
+                onBlur={handleAssessmentBlur}
+                className="bg-transparent text-white font-semibold border-b border-white outline-none px-1"
+                style={{ minWidth: "120px", width: `${assessmentName.length + 1}ch` }}
+              />
+            ) : (
+              <>
+                <span className="text-white font-semibold">{assessmentName}</span>
+                <button
+                  onClick={() => setIsEditingAssessment(true)}
+                  className="p-1 hover:bg-gray-700 rounded transition-colors"
+                >
+                  <img src={EditIcon} alt="Edit" className="w-4 h-4" />
+                </button>
+              </>
+            )}
+          </div>
         </div>
       );
     }
@@ -81,7 +132,7 @@ const Navbar = ({ onMenuClick, clientName, isNewAssessment }) => {
 
   return (
     <>
-      <header className="h-16 bg-[#2A2426] shadow-sm flex items-center justify-between px-4 md:px-6">
+      <header className="h-16 bg-neutral-800 shadow-sm flex items-center justify-between px-4 md:px-6">
         <div className="flex items-center">
           <button
             onClick={onMenuClick}

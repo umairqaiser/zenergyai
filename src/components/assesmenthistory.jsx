@@ -12,48 +12,21 @@ import SearchIcon from "@mui/icons-material/Search";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { Plus, FileText } from "lucide-react";
+import { MOCK_ASSESSMENTS, PAGINATION, ASSESSMENT_STATUS } from "../constant/constant";
 
 const AssesmentHistory = ({ clientName }) => {
   const [page, setPage] = useState(1);
   const navigate = useNavigate();
   const { clientId } = useParams();
-  const rowsPerPage = 5;
-
-  const assessments = [
-    {
-      id: 1,
-      date: "2025-12-05",
-      status: "Completed",
-    },
-    {
-      id: 2,
-      date: "2025-12-03",
-      status: "Processing",
-    },
-    {
-      id: 3,
-      date: "2025-12-01",
-      status: "Rejected",
-    },
-    {
-      id: 4,
-      date: "2025-11-28",
-      status: "Completed",
-    },
-    {
-      id: 5,
-      date: "2025-11-25",
-      status: "Processing",
-    },
-  ];
+  const rowsPerPage = PAGINATION.ASSESSMENT_ROWS_PER_PAGE;
 
   const getChipClass = (status) => {
     switch (status) {
-      case "Completed":
+      case ASSESSMENT_STATUS.COMPLETED:
         return "assessment-chip-completed";
-      case "Processing":
+      case ASSESSMENT_STATUS.PROCESSING:
         return "assessment-chip-processing";
-      case "Rejected":
+      case ASSESSMENT_STATUS.REJECTED:
         return "assessment-chip-rejected";
       default:
         return "assessment-chip-completed";
@@ -64,7 +37,7 @@ const AssesmentHistory = ({ clientName }) => {
     navigate(`/myclients/${clientId}/${encodeURIComponent(clientName)}/new-assessment`);
   };
 
-  const paginatedAssessments = assessments.slice(
+  const paginatedAssessments = MOCK_ASSESSMENTS.slice(
     (page - 1) * rowsPerPage,
     page * rowsPerPage
   );
@@ -73,7 +46,7 @@ const AssesmentHistory = ({ clientName }) => {
     <div className="flex flex-col gap-4">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between w-full gap-4">
         <div className="flex items-center gap-3">
-          <h2 className="text-white font-[inter] text-xl font-semibold leading-[24px]">
+          <h2 className="text-white font-inter text-xl font-semibold leading-[24px]">
             Assessment History
           </h2>
           <Button
@@ -107,19 +80,19 @@ const AssesmentHistory = ({ clientName }) => {
           }}
         />
       </div>
-      <div className="flex flex-col items-start self-stretch p-4 gap-4 rounded-[9px] border border-[#3B3538] bg-transparent shadow-sm">
+      <div className="flex flex-col items-start self-stretch p-4 gap-4 rounded-[9px] border border-neutral-700 bg-transparent shadow-sm">
         {paginatedAssessments.length > 0 ? (
           paginatedAssessments.map((assessment) => (
             <div
               key={assessment.id}
-              className="flex flex-col sm:flex-row items-start sm:items-center justify-between w-full p-4 rounded-lg bg-[#2A2426] gap-3"
+              className="flex flex-col sm:flex-row items-start sm:items-center justify-between w-full p-4 rounded-lg bg-neutral-800 gap-3"
             >
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-[#3B3538] flex items-center justify-center">
+                <div className="w-10 h-10 rounded-lg bg-neutral-700 flex items-center justify-center">
                   <FileText size={20} className="text-white" />
                 </div>
                 <div className="flex flex-col gap-1">
-                  <span className="text-white font-[inter] text-sm font-medium">
+                  <span className="text-white font-inter text-sm font-medium">
                     Assessment - {assessment.date}
                   </span>
                   <Chip
@@ -158,7 +131,7 @@ const AssesmentHistory = ({ clientName }) => {
         )}
         <div className="flex justify-end w-full mt-2">
           <Pagination
-            count={Math.ceil(assessments.length / rowsPerPage)}
+            count={Math.ceil(MOCK_ASSESSMENTS.length / rowsPerPage)}
             page={page}
             onChange={(_, value) => setPage(value)}
             shape="rounded"

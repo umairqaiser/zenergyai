@@ -64,6 +64,70 @@ const theme = createTheme({
           "&.signin-textfield .MuiOutlinedInput-root": {
             borderRadius: "9999px",
           },
+          "&.gait-textfield .MuiOutlinedInput-root": {
+            borderRadius: "9999px",
+            backgroundColor: "transparent",
+            "& fieldset": {
+              borderColor: "#3B3538",
+            },
+            "&:hover fieldset": {
+              borderColor: "#4B4548",
+            },
+            "&.Mui-focused fieldset": {
+              borderColor: "#646cff",
+            },
+          },
+          "&.gait-textfield .MuiInputBase-input": {
+            color: "#6B6568",
+            "&::placeholder": {
+              color: "#6B6568",
+              opacity: 1,
+            },
+          },
+          "&.fms-input-field .MuiOutlinedInput-root": {
+            borderRadius: "9999px",
+            backgroundColor: "#2A2426",
+            "& fieldset": {
+              borderColor: "transparent",
+            },
+            "&:hover fieldset": {
+              borderColor: "#4B4548",
+            },
+            "&.Mui-focused fieldset": {
+              borderColor: "#646cff",
+            },
+          },
+          "&.fms-input-field .MuiInputBase-input": {
+            color: "#ffffff",
+            padding: "10px 16px",
+            textAlign: "left",
+            "&::placeholder": {
+              color: "#6B6568",
+              opacity: 1,
+            },
+          },
+          "&.gait-input-field .MuiOutlinedInput-root": {
+            borderRadius: "9999px",
+            backgroundColor: "#2A2426",
+            "& fieldset": {
+              borderColor: "transparent",
+            },
+            "&:hover fieldset": {
+              borderColor: "#4B4548",
+            },
+            "&.Mui-focused fieldset": {
+              borderColor: "#646cff",
+            },
+          },
+          "&.gait-input-field .MuiInputBase-input": {
+            color: "#ffffff",
+            padding: "10px 16px",
+            textAlign: "left",
+            "&::placeholder": {
+              color: "#6B6568",
+              opacity: 1,
+            },
+          },
         },
       },
     },
@@ -205,6 +269,22 @@ const theme = createTheme({
             fontWeight: 600,
             "&:hover": {
               backgroundColor: "#e5e5e5",
+            },
+          },
+          "&.modality-continue-button": {
+            backgroundColor: "#fff",
+            color: "#141112",
+            borderRadius: "9999px",
+            padding: "12px 40px",
+            fontFamily: "Inter, sans-serif",
+            fontSize: "14px",
+            fontWeight: 600,
+            "&:hover": {
+              backgroundColor: "#e5e5e5",
+            },
+            "&:disabled": {
+              backgroundColor: "#6B6568",
+              color: "#9ca3af",
             },
           },
         },
@@ -437,6 +517,82 @@ const theme = createTheme({
             padding: "24px",
             backgroundImage: "none",
           },
+          "&.select-modality-modal .MuiDialog-paper": {
+            backgroundColor: "#1a1a1a",
+            borderRadius: "16px",
+            padding: "0",
+            backgroundImage: "none",
+            minHeight: "320px",
+          },
+        },
+      },
+    },
+    MuiSelect: {
+      styleOverrides: {
+        root: {
+          "&.modality-select": {
+            backgroundColor: "#3B3538",
+            borderRadius: "9999px",
+            color: "#6B6568",
+            "& .MuiOutlinedInput-notchedOutline": {
+              borderColor: "transparent",
+            },
+            "&:hover .MuiOutlinedInput-notchedOutline": {
+              borderColor: "transparent",
+            },
+            "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+              borderColor: "#646cff",
+            },
+            "& .MuiSelect-select": {
+              padding: "14px 20px",
+            },
+            "& .MuiSelect-icon": {
+              color: "#6B6568",
+              right: "16px",
+            },
+          },
+        },
+      },
+    },
+    MuiFormControl: {
+      styleOverrides: {
+        root: {
+          "&.modality-select-form": {
+            "& .MuiInputBase-root": {
+              backgroundColor: "#3B3538",
+              borderRadius: "9999px",
+            },
+          },
+        },
+      },
+    },
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          "&.modality-menu-item": {
+            color: "#fff",
+            "&:hover": {
+              backgroundColor: "#3B3538",
+            },
+            "&.Mui-selected": {
+              backgroundColor: "#3B3538",
+              "&:hover": {
+                backgroundColor: "#4B4548",
+              },
+            },
+          },
+        },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          "&.modality-select-menu": {
+            backgroundColor: "#2A2426",
+            border: "1px solid #3B3538",
+            borderRadius: "12px",
+            marginTop: "8px",
+          },
         },
       },
     },
@@ -455,6 +611,10 @@ const theme = createTheme({
           "&.import-client-content": {
             padding: 0,
             backgroundColor: "#000000",
+          },
+          "&.modality-modal-content": {
+            padding: 0,
+            backgroundColor: "#1a1a1a",
           },
         },
       },
@@ -565,6 +725,43 @@ const theme = createTheme({
             width: 40,
             height: 40,
             backgroundColor: "#646cff",
+          },
+        },
+      },
+    },
+    MuiSlider: {
+      styleOverrides: {
+        root: {
+          "&.fms-slider": {
+            color: "#fff",
+            height: 4,
+            "& .MuiSlider-track": {
+              backgroundColor: "#374151",
+              border: "none",
+            },
+            "& .MuiSlider-rail": {
+              backgroundColor: "#fff",
+            },
+            "& .MuiSlider-thumb": {
+              width: 16,
+              height: 16,
+              backgroundColor: "#fff",
+              border: "2px solid #fff",
+              "&:hover, &.Mui-focusVisible": {
+                boxShadow: "0 0 0 8px rgba(255, 255, 255, 0.16)",
+              },
+              "&.Mui-active": {
+                boxShadow: "0 0 0 14px rgba(255, 255, 255, 0.16)",
+              },
+            },
+            "& .MuiSlider-valueLabel": {
+              backgroundColor: "#3B3538",
+              color: "#fff",
+              borderRadius: "4px",
+              fontSize: "12px",
+              fontWeight: 600,
+              padding: "4px 8px",
+            },
           },
         },
       },
